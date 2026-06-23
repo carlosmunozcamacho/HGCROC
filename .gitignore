@@ -1,0 +1,4 @@
+*.root
+analysis_output/
+*.pdf
+*.png
