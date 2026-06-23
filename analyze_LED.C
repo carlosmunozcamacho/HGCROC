@@ -51,7 +51,8 @@ void analyze_LED(int runNumber = 691,
     return;
   }
 
-  gSystem->mkdir(outputDir, kTRUE);
+  const TString runOutputDir = TString::Format("%s/Run%d", outputDir, runNumber);
+  gSystem->mkdir(runOutputDir, kTRUE);
   gStyle->SetOptStat(0);
   gStyle->SetPalette(kViridis);
   TH1::AddDirectory(kFALSE);
@@ -164,8 +165,10 @@ void analyze_LED(int runNumber = 691,
 
   cWaveforms->Update();
 
-  const TString pdfName = TString::Format("%s/Run%d_C1_selected_channel_waveforms.pdf", outputDir, runNumber);
-  const TString pngName = TString::Format("%s/Run%d_C1_selected_channel_waveforms.png", outputDir, runNumber);
+  const TString pdfName = TString::Format("%s/Run%d_C1_selected_channel_waveforms.pdf",
+                                          runOutputDir.Data(), runNumber);
+  const TString pngName = TString::Format("%s/Run%d_C1_selected_channel_waveforms.png",
+                                          runOutputDir.Data(), runNumber);
   cWaveforms->SaveAs(pdfName);
   cWaveforms->SaveAs(pngName);
 
@@ -258,9 +261,11 @@ void analyze_LED(int runNumber = 691,
   cIntegrals->Update();
 
   const TString integralPdfName = TString::Format("%s/Run%d_C2_integrals_samples_%d_%d.pdf",
-                                                 outputDir, runNumber, integralStartSample, integralEndSample);
+                                                 runOutputDir.Data(), runNumber,
+                                                 integralStartSample, integralEndSample);
   const TString integralPngName = TString::Format("%s/Run%d_C2_integrals_samples_%d_%d.png",
-                                                 outputDir, runNumber, integralStartSample, integralEndSample);
+                                                 runOutputDir.Data(), runNumber,
+                                                 integralStartSample, integralEndSample);
   cIntegrals->SaveAs(integralPdfName);
   cIntegrals->SaveAs(integralPngName);
 
@@ -372,10 +377,10 @@ void analyze_LED(int runNumber = 691,
 
   const TString calibratedIntegralPdfName =
       TString::Format("%s/Run%d_C3_calibrated_integrals_samples_%d_%d.pdf",
-                      outputDir, runNumber, integralStartSample, integralEndSample);
+                      runOutputDir.Data(), runNumber, integralStartSample, integralEndSample);
   const TString calibratedIntegralPngName =
       TString::Format("%s/Run%d_C3_calibrated_integrals_samples_%d_%d.png",
-                      outputDir, runNumber, integralStartSample, integralEndSample);
+                      runOutputDir.Data(), runNumber, integralStartSample, integralEndSample);
   cCalibratedIntegrals->SaveAs(calibratedIntegralPdfName);
   cCalibratedIntegrals->SaveAs(calibratedIntegralPngName);
 
@@ -496,10 +501,10 @@ void analyze_LED(int runNumber = 691,
 
   const TString resolutionSummaryPdfName =
       TString::Format("%s/Run%d_C4_resolution_summary_samples_%d_%d.pdf",
-                      outputDir, runNumber, integralStartSample, integralEndSample);
+                      runOutputDir.Data(), runNumber, integralStartSample, integralEndSample);
   const TString resolutionSummaryPngName =
       TString::Format("%s/Run%d_C4_resolution_summary_samples_%d_%d.png",
-                      outputDir, runNumber, integralStartSample, integralEndSample);
+                      runOutputDir.Data(), runNumber, integralStartSample, integralEndSample);
   cResolutionSummary->SaveAs(resolutionSummaryPdfName);
   cResolutionSummary->SaveAs(resolutionSummaryPngName);
 
@@ -610,9 +615,9 @@ void analyze_LED(int runNumber = 691,
   cTotIntegrals->Update();
 
   const TString totIntegralPdfName =
-      TString::Format("%s/Run%d_C5_tot_integrals_all_samples.pdf", outputDir, runNumber);
+      TString::Format("%s/Run%d_C5_tot_integrals_all_samples.pdf", runOutputDir.Data(), runNumber);
   const TString totIntegralPngName =
-      TString::Format("%s/Run%d_C5_tot_integrals_all_samples.png", outputDir, runNumber);
+      TString::Format("%s/Run%d_C5_tot_integrals_all_samples.png", runOutputDir.Data(), runNumber);
   cTotIntegrals->SaveAs(totIntegralPdfName);
   cTotIntegrals->SaveAs(totIntegralPngName);
 
@@ -761,9 +766,11 @@ void analyze_LED(int runNumber = 691,
     cCalibratedTotIntegrals->Update();
 
     calibratedTotPdfName =
-        TString::Format("%s/Run%d_C6_calibrated_tot_integrals_all_samples.pdf", outputDir, runNumber);
+        TString::Format("%s/Run%d_C6_calibrated_tot_integrals_all_samples.pdf",
+                        runOutputDir.Data(), runNumber);
     calibratedTotPngName =
-        TString::Format("%s/Run%d_C6_calibrated_tot_integrals_all_samples.png", outputDir, runNumber);
+        TString::Format("%s/Run%d_C6_calibrated_tot_integrals_all_samples.png",
+                        runOutputDir.Data(), runNumber);
     cCalibratedTotIntegrals->SaveAs(calibratedTotPdfName);
     cCalibratedTotIntegrals->SaveAs(calibratedTotPngName);
 
@@ -898,9 +905,11 @@ void analyze_LED(int runNumber = 691,
     cTotResolutionSummary->Update();
 
     totResolutionSummaryPdfName =
-        TString::Format("%s/Run%d_C7_tot_resolution_summary_all_samples.pdf", outputDir, runNumber);
+        TString::Format("%s/Run%d_C7_tot_resolution_summary_all_samples.pdf",
+                        runOutputDir.Data(), runNumber);
     totResolutionSummaryPngName =
-        TString::Format("%s/Run%d_C7_tot_resolution_summary_all_samples.png", outputDir, runNumber);
+        TString::Format("%s/Run%d_C7_tot_resolution_summary_all_samples.png",
+                        runOutputDir.Data(), runNumber);
     cTotResolutionSummary->SaveAs(totResolutionSummaryPdfName);
     cTotResolutionSummary->SaveAs(totResolutionSummaryPngName);
   } else {
